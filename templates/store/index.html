@@ -1,0 +1,710 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid px-0">
+  <section class="px-0">
+    <div class="text-dark py-2 position-relative overflow-hidden">
+      <div class="scrolling-text d-flex align-items-center">
+        {% for coupon in coupons %}
+        <div class="mx-4 flex-shrink-0 coupon-item">
+          🎉 Use Code <strong>{{ coupon.code }}</strong> to 
+          {% if coupon.discount_type == 'percentage' %}
+            Get {{ coupon.discount_value }}% OFF
+          {% else %}
+            Get ₹{{ coupon.discount_value }} OFF
+          {% endif %}
+               – <a href="{% url 'store:all-products' %}" class="text-dark fw-bold text-decoration-none"><strong>Shop Now</strong></a>
+               Valid till: {{ coupon.valid_to|date:"M d, Y" }}
+            </div>
+        {% empty %}
+        <div class="mx-4 flex-shrink-0">
+          No active offers available
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+ 
+ 
+  {% include 'slide_show.html' %}
+  <section class="px-0">
+    <div class="text-dark py-2 position-relative overflow-hidden">
+      <div class="scrolling-text d-flex align-items-center">
+        {% for coupon in coupons %}
+        <div class="mx-4 flex-shrink-0 coupon-item">
+          🎉 Use Code <strong>{{ coupon.code }}</strong> to 
+          {% if coupon.discount_type == 'percentage' %}
+            Get {{ coupon.discount_value }}% OFF
+          {% else %}
+            Get ₹{{ coupon.discount_value }} OFF
+          {% endif %}
+               – <a href="{% url 'store:all-products' %}" class="text-dark fw-bold text-decoration-none"><strong>Shop Now</strong></a>
+               Valid till: {{ coupon.valid_to|date:"M d, Y" }}
+            </div>
+        {% empty %}
+        <div class="mx-4 flex-shrink-0">
+          No active offers available
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CATEGORIES SECTION -->
+  <section class="pt-5">
+    <div class="container">
+      <header class="text-center mb-5 fade-in">
+        <p class="text-uppercase text mb-0">Carefully Curated Collections</p>
+        <h2 class="fw-bold text-uppercase">Browse Our Categories</h2>
+      </header>
+      <div class="row">
+        {% if categories %}
+          {% for category in categories %}
+            <div class="col-md-4 mb-4 mb-md-0 category-wrapper">
+              <a class="category-item" href="{% url 'store:category-products' category.slug %}">
+                {% if category.category_image %}
+                  <img class="img-fluid" src="{{ category.category_image.url }}" alt="{{ category.title }}">
+                {% else %}
+                  <img class="img-fluid" src="{% static 'img/cat-img-1.jpg' %}" alt="{{ category.title }}">
+                {% endif %}
+                <strong class="category-item-title">{{ category.title }}</strong>
+              </a>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+ <!-- TRENDING PRODUCTS -->
+  <section class="py-5">
+    <div class="container">
+      <header class="text-center mb-5 fade-in">
+        <p class="text-uppercase text mb-0">Crafted With Care</p>
+        <h2 class="fw-bold text-uppercase">Top Trending Products</h2>
+      </header>
+      <div class="row g-4">
+        {% if products %}
+          {% for product in products %}
+            <div class="col-xl-3 col-lg-4 col-sm-6 mb-3 product-wrapper">
+              <div 
+                class="card h-100 border-0 shadow product-card" 
+                style="cursor: pointer;"
+                onclick="window.location.href='{% url 'store:product-detail' product.slug %}'"
+              >
+                <div class="position-relative">
+                  <a href="{% url 'store:product-detail' product.slug %}">
+                    {% if product.product_image %}
+                      <img src="{{ product.product_image.url }}" alt="{{ product.title }}" class="card-img-top rounded" style="height: 250px; object-fit: cover;">
+                    {% else %}
+                      <img src="{% static 'img/product-1.jpg' %}" alt="{{ product.title }}" class="card-img-top rounded" style="height: 250px; object-fit: cover;">
+                    {% endif %}
+                  </a>
+                  <div class="product-overlay">
+                    <a href="{% url 'store:add-to-wishlist' product.id %}" class="btn btn-outline-danger btn-sm" title="Add to Wishlist" onclick="event.stopPropagation();">
+                      <i class="far fa-heart"></i>
+                    </a>
+                    <form action="{% url 'store:add-to-cart' %}" method="get" class="m-0 d-inline" onclick="event.stopPropagation();">
+                      <input type="hidden" name="prod_id" value="{{ product.id }}">
+                      <button type="submit" class="btn btn-dark btn-sm">Add to Cart</button>
+                    </form>
+                  </div>
+                </div>
+                <div class="card-body text-center pt-2">
+                  <h6 class="card-title mb-1">
+                    <a href="{% url 'store:product-detail' product.slug %}" class="text-decoration-none text-dark" onclick="event.stopPropagation();">{{ product.title }}</a>
+                  </h6>
+                  <p class="text-muted mb-0 fw-semibold">₹{{ product.price }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="text-center mt-4">
+        <a href="{% url 'store:all-products' %}" 
+           class="blob-btn btn btn-outline-dark rounded-pill fw-semibold px-3 py-2 text-decoration-none">
+          Show All Products
+          <span class="blob-btn__inner">
+            <span class="blob-btn__blobs">
+              <span class="blob-btn__blob"></span>
+              <span class="blob-btn__blob"></span>
+              <span class="blob-btn__blob"></span>
+              <span class="blob-btn__blob"></span>
+            </span>
+          </span>
+        </a>
+      </div>
+      
+      
+      <!-- SVG goo filter (place once in the page) -->
+      <svg style="position:absolute; width:0; height:0;" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="goo" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="
+                 1 0 0 0 0  
+                 0 1 0 0 0  
+                 0 0 1 0 0  
+                 0 0 0 20 -10" result="goo" />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  </section>
+  <!-- MODELS SHOWCASING JEWELRY -->
+  <section class="">
+    <div class="container">
+      <header class="text-center mb-5 fade-in">
+        <p class="text-uppercase text mb-0">Elegance in Every Piece</p>
+        <h2 class="fw-bold text-uppercase">Models Showcasing Our Jewelry</h2>
+      </header>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="image-container">
+            <img class="img-fluid model-image" src="https://plus.unsplash.com/premium_photo-1674255466836-f38d1cc6fd0d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGpld2VscnklMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D" alt="Model wearing jewelry">
+            <div class="image-text">Timeless Beauty</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="image-container">
+            <img class="img-fluid model-image" src="https://plus.unsplash.com/premium_photo-1673758910678-e335643d0817?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Model wearing jewelry">
+            <div class="image-text">Exclusive Jewelry</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="image-container">
+            <img class="img-fluid model-image" src="https://images.unsplash.com/photo-1652766540048-de0a878a3266?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGpld2VscnklMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D" alt="Model wearing jewelry">
+            <div class="image-text">Luxury Collection</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TESTIMONIALS -->
+<section class="py-5">
+  <div class="container">
+    <header class="text-center mb-5 fade-in">
+      <p class="text-uppercase text mb-0">Customer Love</p>
+      <h2 class="fw-bold text-uppercase">What Our Customers Say</h2>
+    </header>
+    <hr>
+    <div class="row text-center">
+      <div class="col-md-4 testimonial-item">
+        <blockquote class="blockquote">
+          <p>"Absolutely stunning jewelry and fast delivery!"</p>
+          <footer class="blockquote-footer">Priya M.</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-4 testimonial-item">
+        <blockquote class="blockquote">
+          <p>"Quality is top-notch. Will definitely buy again."</p>
+          <footer class="blockquote-footer">Amit K.</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-4 testimonial-item">
+        <blockquote class="blockquote">
+          <p>"Gorgeous packaging and amazing customer support."</p>
+          <footer class="blockquote-footer">Sneha R.</footer>
+        </blockquote>
+      </div>
+    </div>
+    <hr> 
+  </div>
+</section>
+
+
+  <!-- BRAND LOGOS -->
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-around align-items-center flex-wrap">
+        <img src="https://1000logos.net/wp-content/uploads/2021/02/Flipkart-logo.png" height="50" class="mx-2 brand-logo" alt="Flipkart" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" height="50" class="mx-2 brand-logo" alt="Amazon" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" height="50" class="mx-2 brand-logo" alt="Google" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- INSTAGRAM REELS GALLERY -->
+  <section class="py-5">
+    <div class="container">
+      <header class="text-center mb-4 fade-in">
+        <h2 class="fw-bold text-uppercase">Follow Us on Instagram</h2>
+        <p class="text-muted small text-decoration-underline">@goldenglamour</p>
+      </header>
+      <div class="row g-2 justify-content-center">
+        
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DDGGEvnI5Nz/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DAlLK37oxZL/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DAlLK37oxZL/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DAlLK37oxZL/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DAlLK37oxZL/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>
+        <div class="col-12 col-md-4 col-lg-2 instagram-reel">
+          <iframe src="https://www.instagram.com/reel/DAlLK37oxZL/embed" 
+                  width="100%" height="300" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+        </div>  
+      </div>
+    </div>
+  </section>
+
+
+  {% include 'partials/_messages.html' %}
+  <!-- NEWSLETTER -->
+  <section class="py-4 bg-white">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h5 class="text-uppercase">Stay Connected!</h5>
+          <p class="text-muted">Get updates and exclusive offers straight to your inbox.</p>
+        </div>
+        <div class="col-md-6">
+          <form action="{% url 'store:home' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+              <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email address" required>
+              <button class="btn btn-dark btn-lg newsletter-btn" type="submit">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- SERVICES -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 service-item">
+          <i class="fas fa-shipping-fast fa-2x mb-2"></i>
+          <h6 class="text-uppercase fw-bold">Free Shipping</h6>
+          <p class="small">On all orders above ₹499</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <i class="fas fa-headset fa-2x mb-2"></i>
+          <h6 class="text-uppercase fw-bold">24/7 Support</h6>
+          <p class="small">We're here for you</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <i class="fas fa-tags fa-2x mb-2"></i>
+          <h6 class="text-uppercase fw-bold">Festival Offers</h6>
+          <p class="small">Exciting deals on every festival</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Custom CSS -->
+<style>
+  .product-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease-in-out;
+  }
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+    :root {
+      --cyan: #000000; /* Black color for blobs and border */
+      --dark: #ffffff;  /* White text on hover */
+      --borderW: 2px;
+    }
+    
+    /* Remove Bootstrap's btn-outline-dark border so our custom border works */
+    .blob-btn.btn-outline-dark {
+      border: none !important;
+      background-color: transparent !important;
+      color: var(--cyan) !important;
+      position: relative;
+      z-index: 1;
+      overflow: visible;
+      transition: color 0.5s;
+      padding: 10px 35px !important; 
+      font-weight: 550 !important;
+      text-transform: uppercase;
+    }
+    
+    /* Outer border */
+    .blob-btn.btn-outline-dark::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: var(--borderW) solid var(--cyan);
+      border-radius: 30px;
+      pointer-events: none;
+    }
+    
+    /* Inner after effect */
+    .blob-btn.btn-outline-dark::after {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      left: calc(var(--borderW) * 1.5);
+      top: calc(var(--borderW) * 1.5);
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      transition: all 0.3s 0.2s;
+      pointer-events: none;
+    }
+    
+    /* Hover color and after position */
+    .blob-btn.btn-outline-dark:hover {
+      color: var(--dark) !important;
+    }
+    
+    .blob-btn.btn-outline-dark:hover::after {
+      left: 0;
+      top: 0;
+      transition: all 0.3s;
+    }
+    
+    /* Inner blob container */
+    .blob-btn__inner {
+      position: absolute;
+      z-index: -1;
+      overflow: hidden;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      background: #ffffff;
+      pointer-events: none;
+    }
+    
+    /* Blob container */
+    .blob-btn__blobs {
+      position: relative;
+      display: block;
+      height: 100%;
+      filter: url('#goo');
+    }
+    
+    /* Each blob */
+    .blob-btn__blob {
+      position: absolute;
+      top: var(--borderW);
+      width: 25%;
+      height: 100%;
+      background: var(--cyan);
+      border-radius: 100%;
+      transform: translate3d(0, 150%, 0) scale(1.7);
+      transition: transform 0.45s;
+    }
+    
+    /* Position each blob */
+    .blob-btn__blob:nth-child(1) {
+      left: 0;
+      transition-delay: 0s;
+    }
+    .blob-btn__blob:nth-child(2) {
+      left: 30%;
+      transition-delay: 0.08s;
+    }
+    .blob-btn__blob:nth-child(3) {
+      left: 60%;
+      transition-delay: 0.16s;
+    }
+    .blob-btn__blob:nth-child(4) {
+      left: 90%;
+      transition-delay: 0.24s;
+    }
+    
+    /* Hover effect on blobs */
+    .blob-btn.btn-outline-dark:hover .blob-btn__blob {
+      transform: translateZ(0) scale(1.7);
+    }
+    
+    /* SVG goo filter fallback */
+    @supports (filter: url('#goo')) {
+      .blob-btn__blob {
+        transform: translate3d(0, 150%, 0) scale(1.4);
+      }
+      .blob-btn.btn-outline-dark:hover .blob-btn__blob {
+        transform: translateZ(0) scale(1.4);
+      }
+    }
+    
+    .scrolling-text {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: scroll-left 20s linear infinite;
+    }
+    
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    
+    /* NEW ANIMATIONS */
+    
+    /* Coupon items animation */
+    .coupon-item {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    /* Category items animation */
+    .category-item {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .category-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .category-item img {
+      transition: transform 0.5s ease;
+    }
+    
+    .category-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .category-item-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .category-item:hover .category-item-title {
+      transform: translateY(0);
+    }
+    
+    /* Product cards animation */
+    .product-wrapper {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+    
+    .product-wrapper:nth-child(1) { animation-delay: 0.1s; }
+    .product-wrapper:nth-child(2) { animation-delay: 0.2s; }
+    .product-wrapper:nth-child(3) { animation-delay: 0.3s; }
+    .product-wrapper:nth-child(4) { animation-delay: 0.4s; }
+    .product-wrapper:nth-child(5) { animation-delay: 0.5s; }
+    .product-wrapper:nth-child(6) { animation-delay: 0.6s; }
+    .product-wrapper:nth-child(7) { animation-delay: 0.7s; }
+    .product-wrapper:nth-child(8) { animation-delay: 0.8s; }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .product-card img {
+      transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .product-overlay .btn {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-overlay .btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .product-overlay .btn:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .product-overlay .btn:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    /* Model images animation */
+    .image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .image-container:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .model-image {
+      transition: transform 0.5s ease;
+    }
+    
+    .image-container:hover .model-image {
+      transform: scale(1.1);
+    }
+    
+       
+    /* Instagram reels animation */
+    .instagram-reel {
+      opacity: 0;
+      transform: scale(0.9);
+      animation: scaleIn 0.5s forwards;
+    }
+    
+    .instagram-reel:nth-child(1) { animation-delay: 0.1s; }
+    .instagram-reel:nth-child(2) { animation-delay: 0.2s; }
+    .instagram-reel:nth-child(3) { animation-delay: 0.3s; }
+    .instagram-reel:nth-child(4) { animation-delay: 0.4s; }
+    .instagram-reel:nth-child(5) { animation-delay: 0.5s; }
+    .instagram-reel:nth-child(6) { animation-delay: 0.6s; }
+    
+    @keyframes scaleIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .instagram-reel iframe {
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .instagram-reel:hover iframe {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    /* Newsletter animation */
+    .newsletter-btn {
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+      background-color: #333;
+    }
+    
+    .newsletter-btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .newsletter-btn:active::after {
+      width: 300px;
+      height: 300px;
+    }
+    
+    /* Services animation */
+    .service-item {
+      padding: 20px;
+      border-radius: 8px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .service-item:hover {
+      transform: translateY(-10px);
+      background-color: #f8f9fa;
+    }
+    
+    .service-item i {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    
+    .service-item:hover i {
+      transform: scale(1.2);
+      color: #ff6b6b;
+    }
+    
+    /* Fade in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+</style>
+{% endblock content %}

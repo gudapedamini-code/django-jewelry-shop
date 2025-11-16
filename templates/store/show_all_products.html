@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid px-0">
+  <section class="py-5">
+    <div class="container">
+      <!-- SHOP LISTING-->
+      <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+          <p class="text-small text-muted mb-0">
+            Showing {{ products.start_index }}–{{ products.end_index }} of {{ products.paginator.count }} results
+          </p>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+            <li class="list-inline-item">
+              <form method="get" class="d-flex align-items-center">
+                <select class="selectpicker ml-auto" name="sorting" onchange="this.form.submit()" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
+                  <option value="default" {% if sort_option == 'default' %}selected{% endif %}>Default sorting</option>
+                  <option value="low-high" {% if sort_option == 'low-high' %}selected{% endif %}>Price: Low to High</option>
+                  <option value="high-low" {% if sort_option == 'high-low' %}selected{% endif %}>Price: High to Low</option>
+                </select>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {% for product in products %}
+        <div class="col-6 col-md-4 col-xl-3 mb-4">
+          <div class="card h-100 border-0 shadow-sm product-card" style="cursor: pointer;" onclick="window.location.href='{% url 'store:product-detail' product.slug %}'">
+            <div class="position-relative">
+              {% if product.product_image %}
+                <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.title }}" style="height: 250px; object-fit: cover;">
+              {% else %}
+                <img src="{% static 'img/product-1.jpg' %}" class="card-img-top" alt="{{ product.title }}" style="height: 250px; object-fit: cover;">
+              {% endif %}
+
+              <div class="product-overlay">
+                <a href="{% url 'store:add-to-wishlist' product.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">
+                  <i class="far fa-heart"></i>
+                </a>
+                <form action="{% url 'store:add-to-cart' %}" method="get" class="d-inline" onclick="event.stopPropagation();">
+                  <input type="hidden" name="prod_id" value="{{ product.id }}">
+                  <button type="submit" class="btn btn-dark btn-sm">Add to Cart</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="card-body text-center">
+              <h6 class="card-title mb-1">
+                <a href="{% url 'store:product-detail' product.slug %}" class="text-decoration-none text-dark" onclick="event.stopPropagation();">
+                  {{ product.title }}
+                </a>
+              </h6>
+              <p class="text-muted fw-semibold mb-0">₹{{ product.price }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center justify-content-lg-end mt-4">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            {% for num in products.paginator.page_range %}
+              {% if products.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?sorting={{ sort_option }}&page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CSS -->
+<style>
+  .product-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease-in-out;
+  }
+
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+</style>
+{% endblock content %}

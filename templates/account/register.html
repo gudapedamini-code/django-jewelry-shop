@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %} {# Needed for Google login URL #}
+
+{% block content %}
+<div class="container py-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 bg-white rounded-4 shadow overflow-hidden">
+
+      <div class="row g-0">
+
+        <!-- Left Section (Branding / Image) -->
+        <div class="col-md-5 bg-primary text-white d-flex flex-column justify-content-center align-items-center p-4">
+          <div class="text-center">
+            <h2 class="fw-bold">Join Us Today</h2>
+            <p class="small mt-2">Create an account to manage your orders, wishlist and faster checkout.</p>
+            <img src="{% static 'img/shopping_signup.png' %}"
+                 alt="Signup Illustration"
+                 class="img-fluid mt-3 d-none d-md-block ml-2"
+                 style="max-width: 320px; height: auto;">
+          </div>
+        </div>
+
+        <!-- Right Section (Form) -->
+        <div class="col-md-7 p-5">
+          {% include 'partials/_messages.html' %}
+          <h3 class="fw-bold text-center mb-4">Create Your Account</h3>
+
+          <!-- 📧 Email Signup Form -->
+          <form method="post" action="{% url 'store:register' %}" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                <div class="form-text text-danger">{{ field.errors|striptags }}</div>
+              </div>
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-outline-primary fw-semibold py-2">
+                Create Account
+              </button>
+            </div>
+          </form>
+
+          <!-- Divider -->
+          <div class="d-flex align-items-center my-3">
+            <hr class="flex-grow-1">
+            <span class="px-2 small text-muted">or</span>
+            <hr class="flex-grow-1">
+          </div>
+
+          <!-- 🔵 Google Signup Button -->
+          <div class="text-center mb-2">
+            <a href="{% provider_login_url 'google' %}" class="btn btn-light border d-flex align-items-center justify-content-center gap-2 py-2 w-100">
+              <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" width="20">
+              <span class="fw-semibold text-muted">Sign up with Google</span>
+            </a>
+          </div>
+
+          <div class="text-center mt-4">
+            <span class="text-muted">Already registered?</span>
+            <a href="{% url 'store:login' %}" class="text-decoration-none fw-semibold text-primary">Log In</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

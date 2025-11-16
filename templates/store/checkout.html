@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+{% include 'partials/_messages.html' %}
+
+<div class="container">
+  <!-- HERO SECTION -->
+  <section class="py-5 blog-header">
+    <div class="row px-4 py-lg-4 align-items-center">
+      <div class="col-lg-6">
+        <h1 class="h2 text-uppercase text-lg-left">Checkout</h1>
+      </div>
+      <div class="col-lg-6 text-lg-end">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-lg-end bg-transparent">
+            <li class="breadcrumb-item"><a href="{% url 'store:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'store:cart' %}">Cart</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="row">
+      <!-- BILLING DETAILS -->
+      <div class="col-lg-8 mb-4">
+        <h2 class="h5 text-uppercase mb-4">Billing Details</h2>
+        <div class="card border-0 shadow-sm bg-light equal-height">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+            <span>Saved Addresses</span>
+            <button class="btn btn-outline-dark btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#addAddressForm" aria-expanded="false" aria-controls="addAddressForm">
+              + Add
+            </button>
+          </div>
+
+          <div class="collapse mt-2" id="addAddressForm">
+            <div class="card card-body border-0 bg-white shadow-sm">
+              <h6 class="mb-3">Add New Address</h6>
+              <form method="post" action="{% url 'store:add-address' %}">
+                {% csrf_token %}
+                {% for fm in form %}
+                  <div class="mb-2">
+                    {{ fm.label_tag }}
+                    {{ fm }}
+                    <small class="text-danger">{{ fm.errors|striptags }}</small>
+                  </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-dark btn-sm">Save Address</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card-body">
+            {% if addresses %}
+              {% for address in addresses %}
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h6 class="mb-0">Address {{ forloop.counter }}</h6>
+                    <a href="{% url 'store:remove-address' address.id %}" class="text-danger">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </div>
+                  <div>
+                    <div><strong>Address:</strong> {{ address.address }}</div>
+                    <div><strong>Mobile:</strong> {{ address.user_phone_number }}</div>
+                    <div><strong>City:</strong> {{ address.city }}</div>
+                    <div><strong>State:</strong> {{ address.state }}</div>
+                    <div><strong>Pincode:</strong> {{ address.pincode }}</div>
+                  </div>
+                  {% if not forloop.last %}<hr>{% endif %}
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="text-muted">No address added yet.</p>
+            {% endif %}
+          </div>
+        </div>
+        <!-- CART NAV--><hr>
+        <div class="bg-white px-2 py-2">
+          <div class="row align-items-center text-center">
+            <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="{% url 'store:home' %}"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="col-lg-4 mb-4">
+        <div class="card border-0 rounded-0 p-lg-3 bg-white equal-height">
+          <div class="card-body">
+            <h5 class="text-uppercase mb-4">Cart Total</h5>
+            <ul class="list-group list-group-flush shadow-sm rounded border mb-4">
+              {% for item in cart_items %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <a href="{% url 'store:product-detail' item.product.slug %}" class="reset-anchor d-block">
+                    {% if item.product.product_image %}
+                      <img src="{{ item.product.product_image.url }}" alt="{{ item.product.title }}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+                    {% else %}
+                      <img src="{% static 'img/product-detail-3.jpg' %}" alt="{{ item.product.title }}" class="me-3 rounded" style="width: 70px; height: 70px; object-fit: cover;">
+                    {% endif %}
+                  </a>
+                  <div>
+                    <strong class="h6">
+                      <a class="reset-anchor animsition-link text-dark ml-2" href="{% url 'store:product-detail' item.product.slug %}">
+                        {{ item.product.title }}
+                      </a>
+                    </strong><br>
+                    <small class="text-muted ml-2">Qty: {{ item.quantity }}</small>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <span>₹{{ item.total_price|intcomma }}</span>
+                </div>
+              </li>              
+              {% endfor %}
+           
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <strong class="text-muted">Price ({{ item_count }} items)</strong>
+                <span>₹{{ amount|intcomma }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <strong class="text-muted">Delivery Charges</strong>
+                <span>{% if shipping_amount > 0 %}+₹{{ shipping_amount }}{% else %}<span class="text-success">Free</span>{% endif %}</span>
+              </li>
+
+              {% if discount > 0 %}
+              <li class="list-group-item d-flex justify-content-between text-success">
+                <div>
+                  <strong>Coupon Applied: {{ coupon.code }}</strong><br>
+                  <small>You saved ₹{{ discount_amount|floatformat:2 }}</small>
+                </div>
+                <form action="{% url 'store:remove_coupon' %}" method="post" class="m-0">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-link p-0 text-danger"><i class="fas fa-trash-alt small"></i></button>
+                </form>
+              </li>
+              <li class="list-group-item d-flex justify-content-between text-muted">
+                <span>Total Before Discount</span>
+                <span>₹{{ total_amount|intcomma }}</span>
+              </li>
+              {% endif %}
+
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <strong>Total Amount</strong>
+                <strong class="text-success">₹{{ total_amount_after_discount|intcomma }}</strong>
+              </li>
+
+              {% if not discount %}
+              <li class="list-group-item">
+                <div class="dropdown w-100">
+                  <button class="btn btn-dark btn-sm dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                    Apply Coupon
+                  </button>
+                  <ul class="dropdown-menu w-100 p-2" style="max-height: 250px; overflow-y: auto;">
+                    {% if active_coupons %}
+                      {% for coupon in active_coupons %}
+                        <li class="mb-2">
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <strong>{{ coupon.code }}</strong> –
+                              {% if coupon.discount_type == 'percentage' %}
+                                {{ coupon.discount_value }}% off
+                              {% else %}
+                                ₹{{ coupon.discount_value }} off
+                              {% endif %}
+                              <br><small class="text-muted">Valid till {{ coupon.valid_to|date:"M d, Y" }}</small>
+                            </div>
+                            <form method="post" action="{% url 'store:apply_coupon' %}" class="ms-3">
+                              {% csrf_token %}
+                              <input type="hidden" name="code" value="{{ coupon.code }}">
+                              <button type="submit" class="btn btn-sm btn-outline-success">Apply</button>
+                            </form>
+                          </div>
+                        </li>
+                        {% if not forloop.last %}
+                        <li><hr class="dropdown-divider"></li>
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <li class="dropdown-item text-muted">No coupons available</li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+
+            <!-- Order Notes -->
+            <div class="form-group mt-3">
+              <label for="order-notes" class="small text-muted">Add a note</label>
+              <textarea class="form-control form-control-sm" name="notes" rows="2" placeholder="Add special instructions..."></textarea>
+            </div>
+
+            <hr class="my-3">
+
+            <!-- Address Selection and Payment Form -->
+            <h5 class="text-uppercase mt-4 mb-3">Select Shipping Address</h5>
+            <form action="{% url 'store:cash_payment' %}" method="post">
+              {% csrf_token %}
+              {% if addresses %}
+                {% for address in addresses %}
+                  <div class="mb-2">
+                    <input type="radio" name="address" value="{{ address.id }}" required>
+                    <strong>Address {{ forloop.counter }}:</strong>
+                    {{ address.address }}, {{ address.city }}, {{ address.state }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                <p class="text-danger">No saved addresses. Please add one in your profile.</p>
+              {% endif %}
+
+              <button type="submit" class="btn btn-outline-dark btn-lg w-100 mt-3" name="payment_method" value="COD">
+                <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+              </button>
+            </form>
+
+            <hr>
+
+            {% include 'store/payment.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

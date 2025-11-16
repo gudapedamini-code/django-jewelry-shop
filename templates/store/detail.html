@@ -1,0 +1,470 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-5">
+      <!-- Product Image Section -->
+      <div class="col-lg-6">
+        <div class="position-relative zoom-container" onmousemove="zoom(event)" onmouseleave="hideZoom()" style="overflow: hidden; background: #fff; border: 1px solid #ddd; border-radius: 8px;">
+    
+          <!-- Main Product Image -->
+          <a href="{{ product.product_image.url }}" class="d-block" data-lightbox="product" title="{{ product.title }}">
+            <img id="main-image" class="img-fluid product-main-image"
+                 src="{{ product.product_image.url }}"
+                 alt="{{ product.title }}">
+          </a>
+    
+          <!-- Wishlist Button -->
+          <div class="position-absolute wishlist-btn" style="top: 12px; right: 15px; z-index: 2;">
+            <a href="{% url 'store:add-to-wishlist' product.id %}" class="text-dark" title="Add to Wishlist">
+              <i class="far fa-heart heart-icon" style="font-size: 1.7rem;"></i>
+            </a>
+          </div>
+    
+          <!-- Blue Hover Square -->
+          <div id="zoom-view"></div>
+        </div>
+    
+        <!-- Optional Zoom Result Display -->
+        <div id="zoom-result" class="zoom-result-fixed"></div>
+      </div>
+    
+    
+      <!-- PRODUCT DETAILS-->
+      <div class="col-lg-6">
+        <div class="d-flex justify-content-between align-items-start">
+          <ul class="list-inline mb-2">
+            {% with product.avg_rating|default:0 as rating %}
+              {% with rating|floatformat:"1" as rating_str %}
+                {% for i in "12345" %}
+                  {% if forloop.counter <= rating %}
+                    <!-- Full Star -->
+                    <li class="list-inline-item m-0">
+                      <i class="fas fa-star small text-warning"></i>
+                    </li>
+                  {% elif forloop.counter0 < rating and rating < forloop.counter %}
+                    <!-- Half Star -->
+                    <li class="list-inline-item m-0">
+                      <i class="fas fa-star-half-alt small text-warning"></i>
+                    </li>
+                  {% else %}
+                    <!-- Empty Star -->
+                    <li class="list-inline-item m-0">
+                      <i class="far fa-star small text-warning"></i>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                <!-- Numeric rating -->
+                <li class="list-inline-item text-muted ml-2">({{ rating_str }}/5)</li>
+              {% endwith %}
+            {% endwith %}
+          </ul>
+
+          <!-- Share Trigger Button -->
+          <a href="#" id="centerShareBtn" class="text-decoration-none text-dark" title="Share">
+            <i class="fas fa-share-alt fa-lg"></i>
+          </a>
+
+          <!-- Dimmed Overlay -->
+          <div id="overlayBackdrop" class="position-fixed top-0 start-0 w-100 h-100 bg-dark" 
+              style="opacity: 0.4; z-index: 1000; display: none;"></div>
+
+          <!-- Share Popup -->
+          <div id="centerShareBox" class="position-fixed bg-white rounded shadow p-3 d-none"
+              style="top: 50%; left: 50%; transform: translate(-50%, -50%);
+                      z-index: 2001; width: max-content; min-width: 320px;">
+
+            <p class="text-center font-weight-bold mb-3">Share this product</p>
+
+            <div class="d-flex justify-content-around text-center flex-wrap mb-2">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&su={{ 'Check out this product'|urlencode }}&body={{ request.build_absolute_uri|urlencode }}" 
+                target="_blank" class="text-muted mx-2 mb-2 text-decoration-none">
+                <i class="fas fa-envelope fa-lg d-block"></i>
+                <small>Email</small>
+              </a>
+              <a href="https://wa.me/?text={{ request.build_absolute_uri }}" target="_blank" class="text-muted mx-2 mb-2 text-decoration-none">
+                <i class="fab fa-whatsapp fa-lg d-block"></i>
+                <small>WhatsApp</small>
+              </a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="text-muted mx-2 text-decoration-none mb-2">
+                <i class="fab fa-facebook fa-lg d-block"></i>
+                <small>Facebook</small>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank" class="text-muted mx-2 mb-2 text-decoration-none">
+                <i class="fab fa-twitter fa-lg d-block"></i>
+                <small>Twitter</small>
+              </a>
+              <a href="#" onclick="copyPopupLink('{{ request.build_absolute_uri }}')" class="text-muted mx-2 mb-2 text-decoration-none">
+                <i class="fas fa-link fa-lg d-block"></i>
+                <small>Copy Link</small>
+              </a>
+            </div>
+
+            <div class="text-center">
+              <button id="closeCenterShare" class="btn btn-sm btn-outline-secondary">Close</button>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="mb-1">{{ product.title }}</h1>
+        <p class="text-dark lead mb-2">₹{{ product.price }}</p>
+
+
+        {% if product.coupon and product.coupon.is_active %}
+          <div class="alert alert-success py-2 px-3 d-inline-block rounded" role="alert" style="font-size: 0.95rem;">
+            <i class="fas fa-tags mr-1"></i>
+            <strong>Offer:</strong>
+            {% if product.coupon.discount_type == "percentage" %}
+              Get <strong>{{ product.coupon.discount_value }}%</strong> off on this product!
+            {% else %}
+              Get <strong>₹{{ product.coupon.discount_value }}</strong> off on this product!
+            {% endif %}
+          </div>
+        {% endif %}
+
+
+
+        <p class="text-dark fs-5 mb-3">{{ product.short_description }}</p>
+
+        <div class="row align-items-stretch mb-3">
+          <!-- Quantity Selector -->
+          <div class="col-sm-5 pr-sm-0">
+            <div class="border d-flex align-items-center justify-content-between py-0 px-2 bg-white border-white">
+              <span class="small text-uppercase text-muted me-2 no-select">Qty</span>
+              <div class="quantity d-flex align-items-center">
+                <button class="dec-btn btn btn-sm p-0 me-1" title="Decrease quantity">
+                  <i class="fas fa-caret-left fa-sm"></i>
+                </button>
+                <input name="quantity" class="form-control form-control-sm border-0 shadow-0 p-0 text-center" type="text" value="1" style="width: 40px;" />
+                <button class="inc-btn btn btn-sm p-0 ms-1" title="Increase quantity">
+                  <i class="fas fa-caret-right fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Add to Cart Button -->
+          <div class="col-sm-3 pl-sm-0">
+            <form action="{% url 'store:add-to-cart' %}">
+              <input type="hidden" name="prod_id" value="{{ product.id }}" id="product_id" />
+              <button
+                type="submit"
+                class="btn btn-dark btn-sm btn-block w-100 h-100 d-flex align-items-center justify-content-center"
+              >
+                Add to Cart
+              </button>
+            </form>
+          </div>
+        </div>
+                
+        
+        {% comment %} <!-- Wishlist + Share (inline) -->
+        <div class="d-flex align-items-center mb-2">
+          <a class="reset-anchor text-decoration-none wishlist-btn" href="{% url 'store:add-to-wishlist' product.id %}">
+            <i class="far fa-heart mr-1 heart-icon"></i>Add to wish list
+          </a>
+        </div> {% endcomment %}
+
+
+        {% if request.user.is_authenticated and user_address %}
+          <p class="text-dark fs-5 mb-3">
+            <i class="fas fa-map-marker-alt fa-sm me-1 text-muted"></i>
+            <span class="d-inline-block mb-1 ml-2">
+              Delivery at <strong class="text-dark">{{ user_address.pincode }}</strong>
+            </span><br>
+
+            <i class="fas fa-truck fa-sm me-1 text-muted"></i>
+            <span class="d-inline-block">
+              Estimated delivery by <strong class="text-dark">{{ product.estimated_delivery_date }}</strong>
+            </span> |
+            <span>
+              {% if product.price > 699 %}
+                <strong class="text-success">Free</strong> Shipping
+              {% else %}
+                <strong class="text-danger">₹99</strong> Shipping applicable
+              {% endif %}
+            </span>
+          </p>
+        {% else %}
+          <p class="text-muted fs-5 mb-2">
+            <i class="fas fa-map-marker-alt fa-sm me-1 text-secondary"></i>
+            <span>Please <a href="{% url 'store:login' %}">log in</a> to check delivery availability.</span>
+          </p>
+        {% endif %}
+
+
+        <!-- Product Meta Info - Minimalist Style -->
+        <div class="p-1 mb-2">
+          <div class="mb-2 d-flex">
+            <span class="badge badge-secondary text-uppercase mr-2" style="width: 90px;">SKU</span>
+            <span class="text-muted">{{ product.sku }}</span>
+          </div>
+          <div class="mb-2 d-flex">
+            <span class="badge badge-secondary text-uppercase mr-2" style="width: 90px;">Category</span>
+            <a href="{% url 'store:category-products' product.category.slug %}" class="reset-anchor text-decoration-none">
+              {{ product.category }}
+            </a>
+          </div>
+          <div class="d-flex">
+            <span class="badge badge-secondary text-uppercase mr-2" style="width: 90px;">Tags</span>
+            <a href="#" class="reset-anchor text-decoration-none">Innovation</a>
+          </div>
+        </div>
+
+        <!-- Accordion for Specs & Policy -->
+        <div class="accordion mb-3">
+          <div class="card border-0">
+            <div class="card-header p-1" id="headingReturn">
+              <h2 class="mb-0">
+                <button class="btn btn-dark btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#returnpolicy" aria-expanded="false" aria-controls="returnpolicy">
+                  Return & Refund Policy
+                </button>
+              </h2>
+            </div>
+            <div class="collapse collapse-area" id="returnpolicy">
+              <div class="card-body py-2 px-3">
+                {{ product.return_refund_policy }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAILS TABS -->
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab">Reviews</a>
+      </li>
+    </ul>
+
+    
+    <div class="tab-content" id="myTabContent">
+      <!-- Description Tab -->
+      <div class="tab-pane fade show active mb-3 mt-2" id="description" role="tabpanel">
+        <div class="bg-white py-4 py-lg-3">
+          <h6 class="text-uppercase">Product description</h6>
+          <p class="text-muted fs-5 mb-0">{{ product.detail_description }}</p>
+        </div>
+      </div>
+
+      <!-- Reviews Tab -->
+      {% include 'partials/_messages.html' %}
+      <div class="tab-pane fade mt-2" id="reviews" role="tabpanel">
+        <!-- Add Review Button -->
+        <div class="card border-0 shadow-sm bg-white">
+          <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Write a Review</h4>
+            {% if request.user.is_authenticated %}
+            <button class="btn btn-outline-dark btn-sm" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#addReviewForm"
+                    aria-expanded="false" aria-controls="addReviewForm">
+              + Add Review
+            </button>
+            {% endif %}
+          </div>
+      
+          <!-- Review Form -->
+          <div class="collapse mt-2" id="addReviewForm">
+            <div class="card card-body border-0 bg-white shadow-sm">
+              <h6 class="mb-3">Add New Review</h6>
+              <form method="POST" action="{% url 'store:submit-review' product.slug %}">
+                {% csrf_token %}
+                {% for fm in form %}
+                  <div class="mb-2">
+                    {{ fm.label_tag }} {{ fm }}
+                    <small class="text-danger">{{ fm.errors|striptags }}</small>
+                  </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-outline-dark btn-sm mt-2">Submit Review</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Review List -->
+        <div class="py-4 bg-white">
+          <div class="row">
+            <div class="col-lg-8">
+              {% if reviews %}
+                <div id="reviewContainer" class="review-scroll-container mx-2 mt-3" style="max-height: 400px; overflow-y: auto;">
+                  {% for review in reviews %}
+                    <div class="media mb-3 review-item {% if forloop.counter > 3 %}d-none extra-review{% endif %}">
+                      <img class="rounded-circle" src="{% static 'img/person.jpg' %}" alt="" width="50" />
+                      <div class="media-body ml-3">
+                        <h6 class="mb-0 text-uppercase">{{ review.user.username }}</h6>
+                        <p class="small text-muted mb-0">{{ review.created_at|date:"d M Y" }}</p>
+                        <ul class="list-inline mb-1 text-xs">
+                          {% for i in "12345" %}
+                            <li class="list-inline-item m-0">
+                              <i class="{% if forloop.counter <= review.rating %}fas{% else %}far{% endif %} fa-star text-warning"></i>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        <p class="text-small mb-0 text-muted">{{ review.comment }}</p>
+                      </div>
+                      {% if request.user == review.user %}
+                        <form action="{% url 'store:remove_review' review.id %}" method="post" class="m-0">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-link p-0 text-danger mr-5">
+                            <i class="fas fa-trash-alt small"></i>
+                          </button>
+                        </form>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+      
+                {% if reviews|length > 3 %}
+                  <button class="btn btn-sm btn-outline-dark mt-3" id="showAllReviewsBtn">Show All Reviews</button>
+                {% endif %}
+              {% else %}
+                <p class="text-muted">No reviews yet. Be the first to review this product.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+       
+    </div>
+    
+
+    <!-- RELATED PRODUCTS-->
+    <h2 class="h5 text-uppercase mb-4">Related Products</h2>
+    <div class="row g-4">
+      {% if related_products %}
+        {% for rp in related_products %}
+          <div class="col-xl-3 col-lg-4 col-sm-6 mb-3">
+            <div 
+              class="card h-100 border-0 shadow product-card"
+              style="cursor: pointer;"
+              onclick="window.location.href='{% url 'store:product-detail' rp.slug %}'"
+            >
+              <div class="position-relative">
+                <a href="{% url 'store:product-detail' rp.slug %}">
+                  {% if rp.product_image %}
+                    <img src="{{ rp.product_image.url }}" alt="{{ rp.title }}" class="card-img-top rounded" style="height: 250px; object-fit: cover;">
+                  {% else %}
+                    <img src="{% static 'img/product-1.jpg' %}" alt="{{ rp.title }}" class="card-img-top rounded" style="height: 250px; object-fit: cover;">
+                  {% endif %}
+                </a>
+                <div class="product-overlay position-absolute top-0 end-0 p-2">
+                  <a href="{% url 'store:add-to-wishlist' rp.id %}" class="btn btn-outline-danger btn-sm me-1" title="Add to Wishlist" onclick="event.stopPropagation();">
+                    <i class="far fa-heart"></i>
+                  </a>
+                  <form action="{% url 'store:add-to-cart' %}" method="get" class="d-inline m-0" onclick="event.stopPropagation();">
+                    <input type="hidden" name="prod_id" value="{{ rp.id }}">
+                    <button type="submit" class="btn btn-dark btn-sm">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+              <div class="card-body text-center pt-2">
+                <h6 class="card-title mb-1">
+                  <a href="{% url 'store:product-detail' rp.slug %}" class="text-decoration-none text-dark" onclick="event.stopPropagation();">
+                    {{ rp.title }}
+                  </a>
+                </h6>
+                <p class="text-muted mb-0 fw-semibold">₹{{ rp.price }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  
+  
+</style>
+
+<script>
+  function zoom(e) {
+    const image = document.getElementById("main-image");
+    const zoomView = document.getElementById("zoom-view");
+    const zoomResult = document.getElementById("zoom-result");
+
+    const bounds = image.getBoundingClientRect();
+    const x = e.pageX - bounds.left - window.scrollX;
+    const y = e.pageY - bounds.top - window.scrollY;
+
+    const posX = x - 50;
+    const posY = y - 50;
+
+    zoomView.style.left = `${posX}px`;
+    zoomView.style.top = `${posY}px`;
+    zoomView.style.display = "block";
+    zoomResult.style.display = "block";
+
+    const percentX = (x / image.width) * 100;
+    const percentY = (y / image.height) * 100;
+
+    zoomResult.style.backgroundImage = `url('${image.src}')`;
+    zoomResult.style.backgroundPosition = `${percentX}% ${percentY}%`;
+  }
+
+  function hideZoom() {
+    document.getElementById("zoom-view").style.display = "none";
+    document.getElementById("zoom-result").style.display = "none";
+  }
+
+ 
+  document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.getElementById("showAllReviewsBtn");
+      if (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".extra-review").forEach(el => el.classList.remove("d-none"));
+          btn.classList.add("d-none");
+        });
+      }
+  });
+    
+</script>
+<script>
+  const shareBtn = document.getElementById('centerShareBtn');
+  const shareBox = document.getElementById('centerShareBox');
+  const closeBtn = document.getElementById('closeCenterShare');
+  const overlay = document.getElementById('overlayBackdrop');
+
+  // Show popup + overlay
+  shareBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    shareBox.classList.remove('d-none');
+    overlay.style.display = 'block';
+  });
+
+  // Close popup
+  closeBtn.addEventListener('click', function () {
+    shareBox.classList.add('d-none');
+    overlay.style.display = 'none';
+  });
+
+  // Hide if clicked outside
+  window.addEventListener('click', function (e) {
+    if (!shareBox.contains(e.target) && !shareBtn.contains(e.target)) {
+      shareBox.classList.add('d-none');
+      overlay.style.display = 'none';
+    }
+  });
+
+  // Copy Link Function
+  function copyPopupLink(url) {
+    navigator.clipboard.writeText(url).then(function () {
+      alert("Link copied to clipboard!");
+    }).catch(function () {
+      alert("Failed to copy the link.");
+    });
+  }
+</script>
+
+
+
+
+
+{% endblock content %}

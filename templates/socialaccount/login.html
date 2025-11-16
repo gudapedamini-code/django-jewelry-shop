@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 bg-white rounded-4 shadow p-5 text-center">
+
+      <img src="{% static 'img/g-logo.png' %}" width="50" class="mb-3" alt="Google">
+
+      <h3 class="fw-bold mb-3">{% trans "Sign In Via Google" %}</h3>
+
+      <p class="text-muted mb-4">
+        {% blocktrans with provider_name=account.get_provider.name %}
+          You are about to sign in using your <strong>{{ provider_name }}</strong> account.
+        {% endblocktrans %}
+      </p>
+
+      <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid">
+          <button type="submit" class="btn btn-outline-primary fw-semibold">
+            {% trans "Continue" %}
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center mt-4">
+        <a href="/" class="text-muted small text-decoration-none">← Go back to Home</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

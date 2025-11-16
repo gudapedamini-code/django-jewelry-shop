@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %} {# Needed for Google login button #}
+
+{% block content %}
+<div class="container py-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 shadow rounded-4 overflow-hidden bg-white">
+
+      <div class="row g-0">
+
+        <!-- Left Branding Section -->
+        <div class="col-md-5 bg-primary text-white d-flex flex-column justify-content-center align-items-center p-4">
+          <div class="text-center">
+            <h2 class="fw-bold">Welcome Back!</h2>
+            <p class="mt-2 small">Login to access your orders, wishlist, and more.</p>
+            <img src="{% static 'img/shopping-login.png' %}" class="img-fluid mt-4 d-none d-md-block" alt="Login Illustration" style="max-width: 250px;">
+          </div>
+        </div>
+
+        <!-- Right Form Section -->
+        <div class="col-md-7 p-5">
+          {% include 'partials/_messages.html' %}
+          <h3 class="fw-bold mb-4 text-center">Sign in to your Account</h3>
+
+          <!-- Email Login Form -->
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% for fm in form %}
+              <div class="mb-3">
+                {{ fm.label_tag }}
+                {{ fm }}
+                <div class="form-text text-danger">{{ fm.errors|striptags }}</div>
+              </div>
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-outline-primary fw-semibold py-2">
+                Login
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-4">
+            <a href="{% url 'store:password-reset' %}" class="text-decoration-none text-primary fw-semibold">Forgot Password?</a><br>
+            <span class="text-muted">New user?</span>
+            <a href="{% url 'store:register' %}" class="fw-semibold text-decoration-none text-primary"> Create an account</a>
+          </div>
+
+          <!-- Divider -->
+          <div class="d-flex align-items-center mb-2 mt-2">
+            <hr class="flex-grow-1">
+            <span class="px-2 text-muted small">OR</span>
+            <hr class="flex-grow-1">
+          </div>
+
+          <!-- Google Login Button -->
+          <div class="text-center mb-2">
+            <a href="{% provider_login_url 'google' %}" class="btn btn-light border w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+              <img src="https://developers.google.com/identity/images/g-logo.png" width="20" alt="Google Logo">
+              <span class="fw-semibold text-muted">Continue with Google</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
