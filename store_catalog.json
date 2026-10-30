@@ -1,0 +1,829 @@
+[
+{
+  "model": "store.category",
+  "pk": 1,
+  "fields": {
+    "title": "Necklaces",
+    "slug": "necklaces",
+    "description": "All the necklaces.",
+    "category_image": "category/necklaces.jpg",
+    "is_active": true,
+    "is_featured": true,
+    "created_at": "2021-05-22T12:33:07.679Z",
+    "updated_at": "2021-05-31T16:34:23.446Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 2,
+  "fields": {
+    "title": "RIngs",
+    "slug": "rings",
+    "description": "All the rings.",
+    "category_image": "category/rings.jpg",
+    "is_active": true,
+    "is_featured": true,
+    "created_at": "2021-05-22T12:33:27.110Z",
+    "updated_at": "2021-05-22T12:33:27.111Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 3,
+  "fields": {
+    "title": "Bracelets",
+    "slug": "bracelets",
+    "description": "All the Bracelets.",
+    "category_image": "category/bracelets.jpg",
+    "is_active": true,
+    "is_featured": true,
+    "created_at": "2021-05-22T12:33:48.922Z",
+    "updated_at": "2021-05-22T12:33:48.922Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 4,
+  "fields": {
+    "title": "Watches",
+    "slug": "watches",
+    "description": "All the watches",
+    "category_image": "category/watches.jpg",
+    "is_active": true,
+    "is_featured": true,
+    "created_at": "2021-05-22T12:34:03.986Z",
+    "updated_at": "2021-05-22T12:34:03.986Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 5,
+  "fields": {
+    "title": "Bead Necklaces",
+    "slug": "bead-necklaces",
+    "description": "All the bead necklaces",
+    "category_image": "category/bead-necklace.jpg",
+    "is_active": true,
+    "is_featured": false,
+    "created_at": "2021-05-22T12:34:24.352Z",
+    "updated_at": "2025-02-24T19:14:01.806Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 6,
+  "fields": {
+    "title": "Earrings",
+    "slug": "earrings",
+    "description": "Earrings Dsescription",
+    "category_image": "category/ear-rings.jpg",
+    "is_active": true,
+    "is_featured": false,
+    "created_at": "2021-05-22T17:07:09.306Z",
+    "updated_at": "2025-02-24T19:14:01.801Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 7,
+  "fields": {
+    "title": "Gifts",
+    "slug": "gifts",
+    "description": "All the products related to Gifts",
+    "category_image": "category/gifts.jpg",
+    "is_active": true,
+    "is_featured": true,
+    "created_at": "2021-05-31T16:35:10.794Z",
+    "updated_at": "2021-05-31T16:35:10.795Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 10,
+  "fields": {
+    "title": "Fashion",
+    "slug": "fashion",
+    "description": "All product related to Trendy Fashion.",
+    "category_image": "category/photo-1583009820765-26fd63af8819.jpg",
+    "is_active": true,
+    "is_featured": false,
+    "created_at": "2025-03-15T13:34:16.524Z",
+    "updated_at": "2025-03-15T13:34:16.525Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 11,
+  "fields": {
+    "title": "Brooch",
+    "slug": "brooch",
+    "description": "All product related to Brooch.",
+    "category_image": "category/photo-1610705260766-0b37b093ce56.jpg",
+    "is_active": true,
+    "is_featured": false,
+    "created_at": "2025-03-15T13:35:50.665Z",
+    "updated_at": "2025-03-15T13:36:07.533Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 1,
+  "fields": {
+    "title": "Anne Klein Gold Watch",
+    "slug": "anne-klein-gold-watch",
+    "sku": "GAK-01",
+    "short_description": "Short Description of the Watch",
+    "detail_description": "",
+    "product_image": "product/Anne-Klein-Gold-Watch.jpg",
+    "price": "300.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:00:14.704Z",
+    "updated_at": "2021-05-22T17:00:14.704Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 2,
+  "fields": {
+    "title": "Colorful Beads Necklace",
+    "slug": "colorful-beads-necklace",
+    "sku": "BN-01",
+    "short_description": "Colorful Beads Necklace Description",
+    "detail_description": "",
+    "product_image": "product/Beads-Necklace.jpg",
+    "price": "20.00",
+    "category": 5,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:01:19.168Z",
+    "updated_at": "2021-05-22T17:01:19.168Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 3,
+  "fields": {
+    "title": "Thick Gold and Diamond Ring",
+    "slug": "thick-gold-and-diamond-ring",
+    "sku": "GR-01",
+    "short_description": "Gold And Diamond Ring Description",
+    "detail_description": "",
+    "product_image": "product/gold-and-diamond-ring.jpg",
+    "price": "500.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:02:22.197Z",
+    "updated_at": "2021-05-22T17:02:22.197Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "title": "Gold Rado Watch",
+    "slug": "gold-rado-watch",
+    "sku": "GW-01",
+    "short_description": "Gold Rado Watch Description",
+    "detail_description": "",
+    "product_image": "product/Gold-and-Steel-Rado-Watch-with-Black-Dial.jpg",
+    "price": "400.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:03:27.210Z",
+    "updated_at": "2021-05-22T17:03:27.210Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "title": "Gold Bracelet Indian Style",
+    "slug": "gold-bracelet-indian-style",
+    "sku": "GB-01",
+    "short_description": "Gold Bracelet Indian Style Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Bracelet.jpg",
+    "price": "550.00",
+    "category": 3,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:04:14.992Z",
+    "updated_at": "2021-05-22T17:04:14.992Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "title": "Gold Bracelet Thin",
+    "slug": "gold-bracelet-thin",
+    "sku": "GB-02",
+    "short_description": "Gold Bracelet Thin Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Bracelets.jpg",
+    "price": "340.00",
+    "category": 3,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:05:13.400Z",
+    "updated_at": "2021-05-22T17:05:13.400Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "title": "Gold Casio Touch Watch",
+    "slug": "gold-casio-touch-watch",
+    "sku": "GWT-01",
+    "short_description": "Gold Casio Touch Watch Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Casio-Touch-Watch.jpg",
+    "price": "600.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:06:07.523Z",
+    "updated_at": "2021-05-22T17:06:07.523Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "title": "Gold Leafy Earrings",
+    "slug": "gold-leafy-earrings",
+    "sku": "GE-01",
+    "short_description": "Gold Leafy Earrings Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Leafy-Earrings.jpg",
+    "price": "230.00",
+    "category": 6,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:07:13.404Z",
+    "updated_at": "2021-05-22T17:07:13.404Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "title": "Gold Necklace with Diamonds",
+    "slug": "gold-necklace-with-diamonds",
+    "sku": "GN-01",
+    "short_description": "Gold Necklace with Diamonds Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Necklace-with-Diamonds.jpg",
+    "price": "900.00",
+    "category": 1,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:07:57.136Z",
+    "updated_at": "2021-05-22T17:07:57.136Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "title": "Gold Ring with Blue Stones",
+    "slug": "gold-ring-with-blue-stones",
+    "sku": "GR-02",
+    "short_description": "Gold Ring with Blue Stones Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Ring-with-Blue-Stones.jpg",
+    "price": "480.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:08:59.881Z",
+    "updated_at": "2021-05-24T16:37:07.488Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 11,
+  "fields": {
+    "title": "Gold Ring with Pink Stone",
+    "slug": "gold-ring-with-pink-stone",
+    "sku": "GR-03",
+    "short_description": "Gold Ring with Pink Stones Description",
+    "detail_description": "",
+    "product_image": "product/Gold-ring-with-pink-stone-and-diamonds.jpg",
+    "price": "499.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:09:45.534Z",
+    "updated_at": "2021-05-22T17:09:45.534Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "title": "Gold Ring with Diamond",
+    "slug": "gold-ring-with-diamond",
+    "sku": "GR-04",
+    "short_description": "Gold Ring with Diamond Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Ring-with-White-Stone.jpg",
+    "price": "990.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:10:29.456Z",
+    "updated_at": "2021-05-22T17:10:29.456Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "title": "Gold Star Earrings",
+    "slug": "gold-star-earrings",
+    "sku": "GE-02",
+    "short_description": "Gold Start Earrings",
+    "detail_description": "Offices parties lasting outward nothing age few resolve. Impression to discretion understood to we interested he excellence. Him remarkably use projection collecting. Going about eat forty world has round miles. Attention affection at my preferred offending shameless me if agreeable. Life lain held calm and true neat she. Much feet each so went no from. Truth began maids linen an mr to after. \r\n\r\nDoubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating. \r\n\r\nNow led tedious shy lasting females off. Dashwood marianne in of entrance be on wondered possible building. Wondered sociable he carriage in speedily margaret. Up devonshire of he thoroughly insensible alteration. An mr settling occasion insisted distance ladyship so. Not attention say frankness intention out dashwoods now curiosity. Stronger ecstatic as no judgment daughter speedily thoughts. Worse downs nor might she court did nay forth these. \r\n\r\nUnpleasant nor diminution excellence apartments imprudence the met new. Draw part them he an to he roof only. Music leave say doors him. Tore bred form if sigh case as do. Staying he no looking if do opinion. Sentiments way understood end partiality and his. \r\n\r\nThose an equal point no years do. Depend warmth fat but her but played. Shy and subjects wondered trifling pleasant. Prudent cordial comfort do no on colonel as assured chicken. Smart mrs day which begin. Snug do sold mr it if such. Terminated uncommonly at at estimating. Man behaviour met moonlight extremity acuteness direction. \r\n\r\nRepulsive questions contented him few extensive supported. Of remarkably thoroughly he appearance in. Supposing tolerably applauded or of be. Suffering unfeeling so objection agreeable allowance me of. Ask within entire season sex common far who family. As be valley warmth assure on. Park girl they rich hour new well way you. Face ye be me been room we sons fond. \r\n\r\nBy impossible of in difficulty discovered celebrated ye. Justice joy manners boy met resolve produce. Bed head loud next plan rent had easy add him. As earnestly shameless elsewhere defective estimable fulfilled of. Esteem my advice it an excuse enable. Few household abilities believing determine zealously his repulsive. To open draw dear be by side like. \r\n\r\nUnpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. Stairs ladies friend by in mutual an no. Mr hence chief he cause. Whole no doors on hoped. Mile tell if help they ye full name. \r\n\r\nYet remarkably appearance get him his projection. Diverted endeavor bed peculiar men the not desirous. Acuteness abilities ask can offending furnished fulfilled sex. Warrant fifteen exposed ye at mistake. Blush since so in noisy still built up an again. As young ye hopes no he place means. Partiality diminution gay yet entreaties admiration. In mr it he mention perhaps attempt pointed suppose. Unknown ye chamber of warrant of norland arrived. \r\n\r\nMay indulgence difficulty ham can put especially. Bringing remember for supplied her why was confined. Middleton principle did she procuring extensive believing add. Weather adapted prepare oh is calling. These wrong of he which there smile to my front. He fruit oh enjoy it of whose table. Cultivated occasional old her unpleasing unpleasant. At as do be against pasture covered viewing started. Enjoyed me settled mr respect no spirits civilly.",
+    "product_image": "product/Gold-Star-Earrings.jpg",
+    "price": "420.00",
+    "category": 6,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:11:28.447Z",
+    "updated_at": "2021-05-24T16:38:43.824Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 14,
+  "fields": {
+    "title": "Gold Watch with White Dial and Diamonds",
+    "slug": "gold-watch-with-white-dial-and-diamonds",
+    "sku": "GW-05",
+    "short_description": "Gold Watch with White Dial and Diamonds Description",
+    "detail_description": "",
+    "product_image": "product/Gold-Watch-with-White-Dial-and-Diamonds.jpg",
+    "price": "780.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:12:17.009Z",
+    "updated_at": "2021-05-22T17:12:17.009Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "title": "Gold Watch with White Dial",
+    "slug": "gold-watch-with-white-dial",
+    "sku": "GW-06",
+    "short_description": "Gold Watch White Dial",
+    "detail_description": "",
+    "product_image": "product/Gold-Watch-with-White-Dial.jpg",
+    "price": "650.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:13:07.061Z",
+    "updated_at": "2021-05-22T17:13:07.061Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 16,
+  "fields": {
+    "title": "Gold Mangalsutra",
+    "slug": "gold-mangalsutra",
+    "sku": "BNM-01",
+    "short_description": "Gold Necklace Mangalsutra description",
+    "detail_description": "",
+    "product_image": "product/Mangalsutra-with-Gold-Locket.jpg",
+    "price": "500.00",
+    "category": 5,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:14:07.955Z",
+    "updated_at": "2021-05-22T17:14:07.955Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 17,
+  "fields": {
+    "title": "Mr Boho Gold Watch",
+    "slug": "mr-boho-gold-watch",
+    "sku": "GW-07",
+    "short_description": "Mr Boho Gold Watch description",
+    "detail_description": "",
+    "product_image": "product/Mr-Boho-Gold-Watch.jpg",
+    "price": "680.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:14:48.011Z",
+    "updated_at": "2021-05-22T17:14:48.012Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 18,
+  "fields": {
+    "title": "Platinum Ring with Diamonds",
+    "slug": "platinum-ring-with-diamonds",
+    "sku": "PR-01",
+    "short_description": "Platinum Ring with Diamonds Description",
+    "detail_description": "",
+    "product_image": "product/platinum-ring-with-diamonds.jpg",
+    "price": "1999.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:16:57.170Z",
+    "updated_at": "2021-05-24T16:36:23.938Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 19,
+  "fields": {
+    "title": "Silver Earrings with Blue Stones",
+    "slug": "silver-earrings-with-blue-stones",
+    "sku": "SE-01",
+    "short_description": "Silver Earrings with Blue Stones",
+    "detail_description": "",
+    "product_image": "product/Silver-Earrings-with-Blue-Stone.jpg",
+    "price": "270.00",
+    "category": 6,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:17:49.280Z",
+    "updated_at": "2021-05-22T17:17:49.280Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 20,
+  "fields": {
+    "title": "Silver Necklace  with Big Diamond",
+    "slug": "silver-necklace-with-big-diamond",
+    "sku": "SN-01",
+    "short_description": "Silver Necklace with Big Diamond Description",
+    "detail_description": "",
+    "product_image": "product/Silver-Necklace-with-Big-Diamond.jpg",
+    "price": "800.00",
+    "category": 1,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:18:34.378Z",
+    "updated_at": "2021-05-22T17:18:34.378Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 21,
+  "fields": {
+    "title": "Silver Ring with Blue Stone",
+    "slug": "silver-ring-with-blue-stone",
+    "sku": "SR-01",
+    "short_description": "Silver Ring with Blue Stone Description",
+    "detail_description": "",
+    "product_image": "product/Silver-Ring-with-Blue-Stone-and-Diamonds.jpg",
+    "price": "350.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:19:37.853Z",
+    "updated_at": "2021-05-22T17:19:37.853Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 22,
+  "fields": {
+    "title": "Silver Ring with Small Diamonds",
+    "slug": "silver-ring-with-small-diamonds",
+    "sku": "SR-02",
+    "short_description": "Silver Ring with Diamonds Description",
+    "detail_description": "",
+    "product_image": "product/SIlver-Ring-with-Diamonds.jpg",
+    "price": "550.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:20:18.483Z",
+    "updated_at": "2021-05-22T17:20:18.483Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 23,
+  "fields": {
+    "title": "Silver Ring with Red Stone",
+    "slug": "silver-ring-with-red-stone",
+    "sku": "SR-03",
+    "short_description": "Silver Ring with Red Stone Description",
+    "detail_description": "Detail Description",
+    "product_image": "product/Silver-Ring-with-Red-Stone.jpg",
+    "price": "488.00",
+    "category": 2,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-22T17:21:01.211Z",
+    "updated_at": "2021-05-31T16:35:53.591Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 24,
+  "fields": {
+    "title": "Gold BitCoin",
+    "slug": "gold-bitcoin",
+    "sku": "GB-1",
+    "short_description": "This is a Golden Bitcoin",
+    "detail_description": "All Bitcoin Description.",
+    "product_image": "product/gold-bitcoin.jpg",
+    "price": "500.00",
+    "category": 7,
+    "is_active": true,
+    "is_featured": true,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2021-05-31T16:37:18.073Z",
+    "updated_at": "2021-05-31T16:37:18.073Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 25,
+  "fields": {
+    "title": "Dragonfly Brooch",
+    "slug": "dragonfly-brooch",
+    "sku": "BR-01",
+    "short_description": "Brooch with dragonfly design.",
+    "detail_description": "",
+    "product_image": "product/photo-1634674740486-df51e3b91ad6.jpg",
+    "price": "510.00",
+    "category": 11,
+    "is_active": true,
+    "is_featured": false,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2025-03-15T13:40:36.458Z",
+    "updated_at": "2025-03-15T13:40:36.458Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 26,
+  "fields": {
+    "title": "Rani Acrylic Brooch",
+    "slug": "rani-acrylic-brooch",
+    "sku": "BR-02",
+    "short_description": "Maya Fashion Brass Rani Acrylic Brooch.  Latest Stylish Crystal Unisex Floral Brooch for Wedding/Party for Women.",
+    "detail_description": "",
+    "product_image": "product/photo-1610454958462-571795784d98.jpg",
+    "price": "205.00",
+    "category": 11,
+    "is_active": true,
+    "is_featured": false,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2025-03-15T13:43:02.681Z",
+    "updated_at": "2025-03-15T13:43:02.681Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 27,
+  "fields": {
+    "title": "LOLA-ROSE-LONDON",
+    "slug": "lola-rose-london",
+    "sku": "LR-01",
+    "short_description": "Lola Rose is a London-based fashion brand founded in 2000 by Nikki Gewirtz, specializing in gemstone-based watches and accessories for women.",
+    "detail_description": "Classic octagonal square, together with a malachite texture copper dial, to create a vintage, fashionable, and extremely versatile style. This watch comes from the Austen collection and is one of Lola Rose's most popular collection. The watch case adopts the classic geometric elements of Lola Rose’s octagonal square, together with a malachite texture dial, to create a retro, fashionable, and extremely versatile style. The watch’s strap is made of black leather, which is comfortable.",
+    "product_image": "product/lola-rose-grrAyV8l3yo-unsplash.jpg",
+    "price": "5000.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": false,
+    "estimated_delivery_days": 7,
+    "return_refund_policy": "7-day return policy. Terms and conditions apply.",
+    "coupon": 4,
+    "created_at": "2025-04-12T21:22:18.288Z",
+    "updated_at": "2025-06-29T18:53:22.505Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 28,
+  "fields": {
+    "title": "JAELYNN-CASTILLO",
+    "slug": "jaelynn-castillo",
+    "sku": "JC-01",
+    "short_description": "Ultra-thin Simple Design: Ultra-thin 6.7 mm thickness dial with rounded all black watch case, minimalist style appearance, unique and eye-catching.",
+    "detail_description": "Unisex Fashion Wrist Watch: Classic and stylish black dial, elegant time marks and small date window. Fashion design suitable for men and women.\r\nHigh Quality Material: Soft and comfortable mesh band with hook buckle, easy to remove and adjust. Durable stainless steel bands, scratch-resistant crystal mirrors meet your daily needs.",
+    "product_image": "product/jaelynn-castillo-xfNeB1stZ_0-unsplash.jpg",
+    "price": "2000.00",
+    "category": 4,
+    "is_active": true,
+    "is_featured": false,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": null,
+    "coupon": null,
+    "created_at": "2025-04-12T21:27:28.029Z",
+    "updated_at": "2025-04-12T21:27:28.029Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 29,
+  "fields": {
+    "title": "Necklace-Earrings",
+    "slug": "necklace-earrings",
+    "sku": "NE-12",
+    "short_description": "An earring is jewelry you wear on your ear.",
+    "detail_description": "Your favorite earrings might be tiny white pearls, or they might be long feathers that dangle to your shoulders. An earring is any kind of ring, stud, hoop, or dangling decoration that you clip on your earlobe or hook through a hole pierced in your ear.",
+    "product_image": "product/photo-1714734071000-5546c90735cd.jpg",
+    "price": "550.00",
+    "category": 10,
+    "is_active": true,
+    "is_featured": false,
+    "estimated_delivery_days": 5,
+    "return_refund_policy": "No Return Polocy.",
+    "coupon": 1,
+    "created_at": "2025-04-12T21:35:33.622Z",
+    "updated_at": "2025-06-30T12:04:15.362Z"
+  }
+},
+{
+  "model": "store.blog",
+  "pk": 1,
+  "fields": {
+    "title": "Top 5 Trending Jewelry Styles in 2025",
+    "slug": "top-5-trending-jewelry-styles-in-2025",
+    "image": "blog_images/ver110124objfashionjewelry-002-cropped-670966234acd7.jpg",
+    "excerpt": "Explore the latest jewelry trends of 2025 that are taking over the fashion world",
+    "content": "2025 is shaping up to be a dazzling year for jewelry lovers! With designers blending vintage aesthetics with futuristic vibes, this year is all about bold statements and personal expression. Whether you're shopping for a timeless piece or something modern and trendy, here are the top 5 jewelry styles that are taking over this year:\r\n\r\n---\r\n\r\n**1. Chunky Gold Chains**\r\nBold, oversized gold chains are dominating both street style and high fashion. They pair effortlessly with both casual and formal outfits, making them a staple in every jewelry box.\r\n\r\n**2. Pearls with a Twist**\r\nPearls are no longer just your grandma’s favorite. Designers are experimenting with irregular shapes, mixing them with metals, and even adding color to create fresh, modern looks.\r\n\r\n**3. Layered Minimalism**\r\nDelicate necklaces and rings stacked or layered are still going strong. The difference in 2025 is the emphasis on asymmetry and personalized charms that reflect the wearer’s personality.\r\n\r\n**4. Vintage Revival**\r\nArt Deco and Victorian-inspired pieces are making a major comeback. Think filigree rings, antique lockets, and detailed brooches—perfect for adding character to any look.\r\n\r\n**5. Sustainable Sparkle**\r\nEco-conscious consumers are seeking out lab-grown diamonds and ethically sourced gemstones. Sustainable jewelry is not just a trend, it’s becoming the new standard.\r\n\r\n---\r\n\r\nWhether you're investing in fine jewelry or picking up a few trendy accessories, these 2025 styles are sure to make you shine. Stay stylish, stay golden! ✨",
+    "date": "2025-04-10"
+  }
+},
+{
+  "model": "store.blog",
+  "pk": 2,
+  "fields": {
+    "title": "How to Choose the Perfect Engagement Ring",
+    "slug": "How-to-Choose-the-Perfect-Engagement-Ring",
+    "image": "blog_images/Solitaire-Rings-A-Guide-to-Choosing-the-Perfect-Diamond-for-Every-Style-and-Budget.jpg",
+    "excerpt": "Your guide to choosing an engagement ring matches your partner’s personality",
+    "content": "Choosing the perfect engagement ring is one of the most memorable and meaningful decisions in your life. It symbolizes love, commitment, and the beginning of a lifelong journey. At Golden Glamour, we believe every love story deserves a ring that captures its essence.\r\n\r\n1. Understand the 4Cs\r\nThe foundation of a diamond’s quality lies in the 4Cs: Cut, Clarity, Color, and Carat.\r\n\r\nCut: Impacts the brilliance and sparkle of the diamond.\r\n\r\nClarity: Measures the internal and external imperfections.\r\n\r\nColor: The less color, the more valuable the diamond.\r\n\r\nCarat: Refers to the weight, not the size, of the diamond.\r\n\r\n2. Choose a Ring Style\r\nThink about your partner’s personality and taste. Do they prefer classic elegance or modern minimalism? Popular styles include:\r\n\r\nSolitaire: A timeless single-diamond setting.\r\n\r\nHalo: A center stone surrounded by smaller diamonds for extra sparkle.\r\n\r\nThree-Stone: Symbolizing past, present, and future.\r\n\r\nVintage: Antique-inspired designs with intricate details.\r\n\r\n3. Select the Right Metal\r\nChoose from a range of luxurious metals such as platinum, white gold, yellow gold, or the romantic rose gold. Each metal offers a unique aesthetic and level of durability.\r\n\r\n4. Consider the Lifestyle\r\nIf your partner leads an active lifestyle or works with their hands, a lower-profile setting with extra durability might be the better choice. Think practical without compromising beauty.\r\n\r\n5. Know the Ring Size\r\nTry to find out your partner’s ring size in a subtle way, like borrowing a ring they wear on the correct finger or asking a trusted friend or family member for help.\r\n\r\n6. Set a Budget\r\nYour engagement ring budget should reflect your priorities and comfort. Remember, it’s not about how much you spend—it’s about finding a ring that speaks to your love story.\r\n\r\n7. Personalize It\r\nMake it truly one-of-a-kind with custom engravings, birthstones, or a design that’s tailored to your partner’s preferences. At Golden Glamour, we offer bespoke services to help you bring your vision to life.\r\n\r\nFinal Thoughts\r\nChoosing an engagement ring is a beautiful journey filled with emotion and excitement. Take your time, do your research, and most importantly, trust your heart. When the right ring appears, you’ll know it—it will simply feel perfect.\r\n\r\nExplore our exclusive engagement collection and begin your forever with elegance, only at Golden Glamour.",
+    "date": "2025-04-10"
+  }
+},
+{
+  "model": "store.blog",
+  "pk": 3,
+  "fields": {
+    "title": "How to Choose the Best Gifts for Mums",
+    "slug": "How-to-Choos-the-Best-Gifts-for-Mums",
+    "image": "blog_images/a6cBLBbw_K_1024x1024.jpg",
+    "excerpt": "Finding really great gifts for mums can sometimes feel like a challenge",
+    "content": "How to Choose the Best Jewellery for Your Mum\r\nEvery mum is unique, and her jewellery should reflect her personal style and taste. Before you start shopping, think about the type of jewellery she already wears and what she might love to add to her collection.\r\n\r\n1. Classic & Elegant Mums\r\nIf your mum loves simple, timeless jewellery, opt for pieces that will never go out of style. Delicate gold necklaces or stud earrings will work beautifully. For something extra special, consider solid gold jewellery to add a touch of elegance to her look. If she prefers cooler colouring, then some elegantly simple sterling silver jewellery will be the go.\r\n\r\n2. Bold & Creative Mums\r\nFor mums who love making a statement, go for something with more personality or a pop of vibrant colouring. Choosing a unique and striking statement necklace or statement earrings that she'll love to show off will be a treat for her. You might also consider choosing colourful gemstone jewellery, or large and ornate hoop earrings, all of which will help her to stand out in any crowd.\r\n\r\n3. Sentimental Mums\r\nDoes your mum love gifts with meaning? Consider birthstone jewellery, symbolic jewellery or generally meaningful jewellery designs, which you can choose with thought and love. For classic and meaningful Mother's Day gifts, take a look at the chrysanthemum pieces in our Bouquet Flower Jewellery range: not only are chrysanthemum's associated with Mother's Day in Australia, but they also represent loyalty and ;ove.",
+    "date": "2025-04-10"
+  }
+},
+{
+  "model": "store.coupon",
+  "pk": 1,
+  "fields": {
+    "code": "GOLD150",
+    "discount_type": "fixed",
+    "discount_value": "150.00",
+    "is_active": true,
+    "valid_from": "2025-06-07T12:57:29Z",
+    "valid_to": "2026-02-12T18:48:24Z",
+    "usage_limit": 5,
+    "used_count": 0
+  }
+},
+{
+  "model": "store.coupon",
+  "pk": 2,
+  "fields": {
+    "code": "SHOP20",
+    "discount_type": "percentage",
+    "discount_value": "20.00",
+    "is_active": true,
+    "valid_from": "2025-06-08T17:57:52Z",
+    "valid_to": "2026-04-24T18:48:08Z",
+    "usage_limit": 3,
+    "used_count": 1
+  }
+},
+{
+  "model": "store.coupon",
+  "pk": 3,
+  "fields": {
+    "code": "NOW50",
+    "discount_type": "percentage",
+    "discount_value": "50.00",
+    "is_active": true,
+    "valid_from": "2025-06-08T18:28:05Z",
+    "valid_to": "2025-07-31T18:28:17Z",
+    "usage_limit": 5,
+    "used_count": 0
+  }
+},
+{
+  "model": "store.coupon",
+  "pk": 4,
+  "fields": {
+    "code": "WOWDEALS",
+    "discount_type": "percentage",
+    "discount_value": "64.00",
+    "is_active": true,
+    "valid_from": "2025-06-08T18:34:49Z",
+    "valid_to": "2027-01-22T18:47:48Z",
+    "usage_limit": 1,
+    "used_count": 0
+  }
+}
+]
