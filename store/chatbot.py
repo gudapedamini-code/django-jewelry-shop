@@ -1,9 +1,15 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-import requests
+import os
+from django.conf import settings
 
-OPENROUTER_API_KEY = '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'  # store this in your settings.py
+OPENROUTER_API_KEY = getattr(
+    settings,
+    'OPENROUTER_API_KEY',
+    os.environ.get('OPENROUTER_API_KEY', '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')
+)
+
 
 @csrf_exempt
 def chatbot_apii(request):
