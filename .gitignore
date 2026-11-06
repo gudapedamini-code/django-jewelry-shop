@@ -12,7 +12,6 @@ __pycache__/
 # Django artifacts
 *.log
 local_settings.py
-db.sqlite3
 db.sqlite3-journal
 staticfiles/
 

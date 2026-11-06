@@ -36,7 +36,7 @@ CSRF_TRUSTED_ORIGINS = [
     origin.strip()
     for origin in os.environ.get(
         'CSRF_TRUSTED_ORIGINS',
-        'http://127.0.0.1,http://localhost'
+        'http://127.0.0.1,http://localhost,https://*.onrender.com,https://django-jewelry-shop-2.onrender.com'
     ).split(',')
     if origin.strip()
 ]
