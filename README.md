@@ -1,6 +1,12 @@
 
 # 💎 Django Jewelry Shop – E-commerce Web Application
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Website-success?style=for-the-badge&logo=render)](https://django-jewelry-shop-2.onrender.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/gudapedamini-code/django-jewelry-shop)
+
+> 🌐 **Live Website URL:** [https://django-jewelry-shop-2.onrender.com](https://django-jewelry-shop-2.onrender.com)  
+> 👑 **Admin Portal:** [https://django-jewelry-shop-2.onrender.com/admin/](https://django-jewelry-shop-2.onrender.com/admin/)
+
 A complete, production-ready jewelry e-commerce platform built with Django. This application supports user authentication, product browsing, cart and checkout functionality, and an administrative dashboard for product and order management.
 
 ---
@@ -43,8 +49,8 @@ This web application is being developed as part of a final year academic project
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vedantthate/Online_Shoping_Website.git
-cd Online_Shoping_Website-main 
+git clone https://github.com/gudapedamini-code/django-jewelry-shop.git
+cd django-jewelry-shop
 ```
 
 ### 2. Create Virtual Environment
