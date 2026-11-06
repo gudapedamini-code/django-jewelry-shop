@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from store.models import Category, Order, OrderItem, Product, Wishlist
 from django.shortcuts import render
 from .utils import *
-from datetime import datetime
+from datetime import datetime, timedelta
 
 @staff_member_required
 def admin_dash_board(request):

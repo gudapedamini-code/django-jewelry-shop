@@ -709,10 +709,11 @@ def cash_payment(request):
         try:
             send_order(order, None)
             messages.success(request, "An order confirmation email has been sent to your registered email.")
-            return render(request, 'store/success.html')
         except Exception as e:
             print(f"Email sending failed: {e}")
             messages.warning(request, "Order placed, but confirmation email could not be sent.")
+        return render(request, 'store/success.html')
+    return redirect('store:cart')
 
 
 @login_required
@@ -843,9 +844,9 @@ def checkout(request):
 
 @login_required
 def cancel_order(request, order_id):
-    order = get_object_or_404(Order , id=order_id)
+    order = get_object_or_404(Order, id=order_id, user=request.user)
     
-    if order_id=='Delivered':
+    if order.status == 'Delivered':
         messages.error(request, "You cannot cancel a delivered order.")
         return redirect('store:orders')
         

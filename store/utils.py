@@ -63,13 +63,15 @@ def user_full_message(email,name):
 
 
 
-def send_order(order, razorpay_order_id):
-    subject = f"Your Receipt for Order #{order.id}"
-    
-    order = Order.objects.filter(razorpay_order_id=razorpay_order_id).first()
+def send_order(order, razorpay_order_id=None):
+    if not order and razorpay_order_id:
+        order = Order.objects.filter(razorpay_order_id=razorpay_order_id).first()
+
     if not order:
         print("Error: Order not found for email confirmation.")
         return
+
+    subject = f"Your Receipt for Order #{order.id}"
 
     user_email = order.user.email
     order_items = order.items.all()  # Using related_name="items"
